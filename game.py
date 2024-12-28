@@ -148,7 +148,7 @@ class Game:
     def run(self, events):
         self.handle_events(events)
         self.update_player()
-        self.update_slimes()  # Update slimes
+        # self.update_slimes()  # Update slimes
         self.update_attack()  # Update attack cooldown
         self.draw_game()
         self.clock.tick(60)  # Increase frame rate to 60 FPS for smoother movement
@@ -187,6 +187,10 @@ class Game:
                 self.camera_zoom = 0.5
         if keys[pygame.K_k]:  # Press 'k' to attack
             self.attack()
+        if keys[pygame.K_l]:
+            self.health += 10
+            if self.health >= 100:
+                self.health = 100
 
     def handle_mouse_click(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -401,7 +405,7 @@ class Game:
         self.screen.blit(scaled_surface, (offset_x, offset_y))
 
         # Draw the current block type on the screen
-        font = pygame.font.Font(default_font, 16)
+        font = pygame.font.Font(default_font, 20)
         block_type_text = f"Current Block: {self.current_block_type.capitalize()}"
         text_surface = font.render(block_type_text, True, (255, 255, 255))
         self.screen.blit(text_surface, (10, self.screen_height - 30))

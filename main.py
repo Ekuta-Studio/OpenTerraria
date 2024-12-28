@@ -45,11 +45,8 @@ def main():
     pause_text_rect = pause_text.get_rect(center=(screen_width // 2, screen_height // 2))
 
     # Pause menu buttons
-    save_button_text = font.render("Save Game", True, BLACK)
+    save_button_text = font.render("Save and quit game", True, BLACK)
     save_button_rect = save_button_text.get_rect(center=(screen_width // 2, screen_height // 2 + 50))
-
-    load_button_text = font.render("Load Game", True, BLACK)
-    load_button_rect = load_button_text.get_rect(center=(screen_width // 2, screen_height // 2 + 100))
 
     # Start with the startup screen
     show_startup = True
@@ -76,12 +73,16 @@ def main():
             for event in events:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:  # Press Enter to start the game
+                        game.load_game()
+                        print("Game loaded!")
                         show_startscreen = False
                         pygame.mixer.music.load('sounds/music/overworld_day.ogg')
                         pygame.mixer.music.play(-1)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # Check if the start game button is clicked
                     if start_game_button_rect.collidepoint(event.pos):
+                        game.load_game()
+                        print("Game loaded!")
                         show_startscreen = False
                         pygame.mixer.music.load('sounds/music/overworld_day.ogg')
                         pygame.mixer.music.play(-1)
@@ -100,14 +101,14 @@ def main():
                     if save_button_rect.collidepoint(event.pos):
                         game.save_game()
                         print("Game saved!")
-                    if load_button_rect.collidepoint(event.pos):
-                        game.load_game()
-                        print("Game loaded!")
+                        show_startscreen = True
+                        paused = False
+                        pygame.mixer.music.load('sounds/music/title_screen.ogg')
+                        pygame.mixer.music.play(-1)
 
             screen.fill(WHITE)
             screen.blit(pause_text, pause_text_rect)
             screen.blit(save_button_text, save_button_rect)
-            screen.blit(load_button_text, load_button_rect)
         else:
             for event in events:
                 if event.type == pygame.KEYDOWN:
@@ -119,7 +120,7 @@ def main():
         # Display FPS on the screen
         fps = clock.get_fps()
         fps_text = f"FPS: {fps:.2f}"
-        font = pygame.font.Font(default_font, 16)
+        font = pygame.font.Font(default_font, 20)
         fps_surface = font.render(fps_text, True, BLACK)
         screen.blit(fps_surface, (10, 45))
 
