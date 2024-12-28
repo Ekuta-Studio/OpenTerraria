@@ -10,4 +10,7 @@ The "OpenTerraria" is Terraria's open source and Python edition.
 ## Support Platform
 Windows/OSX/Linux/*Android \
 *Android platform have very many bug!!!(Example:Screen resolution not adapted)
-
+## Contact
+Telegram:[https://t.me/openterraria](https://t.me/openterraria) \
+BiliBili:EkutaStudio \
+E-Mail:mibino@163.com or icetwo@aliyun.com
